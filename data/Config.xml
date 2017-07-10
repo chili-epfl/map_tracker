@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <opencv_storage>
-<calibrationFile>"logitech.xml"</calibrationFile>
+<calibrationFile>"calibration/logitech.xml"</calibrationFile>
 <landmarkFiles>
   "landmarks/f2_pacman.xml.gz"</landmarkFiles>
 </opencv_storage>

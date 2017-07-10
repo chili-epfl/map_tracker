@@ -85,6 +85,7 @@ void drawAxes(cv::Mat& image, const cv::Mat& orientation)
 
 Map_Tracker::Map_Tracker(const std::string& configPath)
 {
+
     std::string configFile; configFile = configPath + "Config.xml";
     cv::FileStorage fs(configFile, cv::FileStorage::READ);
 
@@ -95,8 +96,10 @@ Map_Tracker::Map_Tracker(const std::string& configPath)
     }
 
     std::string calibrationFile;
+
     fs["calibrationFile"]>> calibrationFile;
     calibrationFile = configPath + calibrationFile;
+
 
 
     std::vector<std::string> landmarkFiles;
@@ -118,9 +121,11 @@ Map_Tracker::Map_Tracker(const std::string& configPath)
 void Map_Tracker::init(const std::string& calibrationFile, const std::vector<std::string>& landmarkFiles)
 {
 
+
     cv::FileStorage calibrationStorage(calibrationFile, cv::FileStorage::READ);
     if(!calibrationStorage.isOpened())
     {
+
         std::cerr << "Could not open " << calibrationFile << std::endl;
         throw std::runtime_error("Calibration file not found!");
     }
