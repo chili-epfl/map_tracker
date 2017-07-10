@@ -1,0 +1,22 @@
+
+include_directories(${PROJECT_SOURCE_DIR}/tests/common)
+
+set(common_SOURCES
+        common/VideoSource.cpp
+        common/VideoSource.hpp)
+
+add_library(common SHARED ${common_SOURCES})
+target_link_libraries(common ${OpenCV_LIBRARIES} map_tracker)
+
+set(exec_SOURCES
+        tracker.cpp)
+
+foreach(source ${exec_SOURCES})
+  # Compute the name of the binary to create
+  get_filename_component(binary ${source} NAME_WE)
+
+  # From source compile the binary and add link rules
+  add_executable(${binary} ${source})
+  target_link_libraries(${binary} ${OpenCV_LIBRARIES} map_tracker common)
+
+endforeach(source)
