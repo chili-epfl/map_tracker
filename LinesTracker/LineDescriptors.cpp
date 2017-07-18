@@ -78,9 +78,11 @@ int main( int argc, char** argv )
   }
 
     cv::Mat imageMat_blue = blueFilter(imageMat);
+      imwrite("./color_filtered.jpg", imageMat_blue);
     GaussianBlur( imageMat_blue, imageMat_blue, Size( 9, 9 ), 0, 0 );
 
-    imshow("color filtered", imageMat_blue);
+  imshow("color filtered", imageMat_blue);
+
 
   /* create a ramdom binary mask */
   cv::Mat mask = Mat::ones( imageMat_blue.size(), CV_8UC1 );

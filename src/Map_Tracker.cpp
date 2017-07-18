@@ -206,7 +206,7 @@ void Map_Tracker::updateLandmarks(const cv::Mat& input,
         // Extract features only once every 20 frames and only if need to do any detection (ie all markers are not tracked)
         std::vector<cv::KeyPoint> detectedKeypoints;
         cv::Mat detectedDescriptors;
-        if(!allTracked && counter >= 20)
+        if(!allTracked && counter >= 10)
         {
             mFeatureExtractor->detectAndCompute(input, cv::noArray(),
                                                 detectedKeypoints, detectedDescriptors);

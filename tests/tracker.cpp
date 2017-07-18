@@ -17,6 +17,19 @@ void showHelp(){
 }
 
 
+cv::Mat blueFilter(cv::Mat originalImage){
+  // Convert input image to HSV
+  cv::Mat hsv_image;
+  cvtColor(originalImage, hsv_image, cv::COLOR_BGR2HSV);
+
+ // Threshold the HSV image, keep only the blue pixels
+ cv::Mat blue_hue_range;
+ cv::inRange(hsv_image, cv::Scalar(60, 40, 50), cv::Scalar(125, 255, 255), blue_hue_range);
+
+ return blue_hue_range;
+
+}
+
 int tracker(const char* inPath = NULL, const char* configPath = NULL, unsigned int videoS = 0){
 
 
@@ -33,9 +46,12 @@ int tracker(const char* inPath = NULL, const char* configPath = NULL, unsigned i
               videoSource.grabNewFrame();
               cv::Mat inputImage = videoSource.getFramePointer();
 
+              // tested to use blue filter before tracking
+              //cv::Mat inputGray = blueFilter(inputImage);
+
 
               cv::Mat inputGray;
-              cv::cvtColor(inputImage, inputGray, CV_RGB2GRAY);
+              cv::cvtColor(imageMat_blue, inputGray, CV_RGB2GRAY);
 
               tracker.update(inputGray);
               tracker.drawLastDetection(&inputImage);

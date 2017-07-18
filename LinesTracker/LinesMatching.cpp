@@ -139,6 +139,7 @@ static void help()
    std::vector<DMatch> matches;
    bdm->match( left_lbd, right_lbd, matches );
 
+
    /* select best matches */
    std::vector<DMatch> good_matches;
    for ( int i = 0; i < (int) matches.size(); i++ )
@@ -157,6 +158,8 @@ static void help()
    imshow( "Matches", outImg );
    waitKey();
    imwrite("../matches.jpg", outImg);
+
+
    /* create an LSD detector */
    Ptr<LSDDetector> lsd = LSDDetector::createLSDDetector();
 
