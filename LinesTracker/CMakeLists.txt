@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( LinesFeatures )
+find_package( OpenCV REQUIRED )
+add_executable( LinesFeatures LineDescriptors.cpp )
+add_executable( LinesMatching LinesMatching.cpp )
+target_link_libraries( LinesFeatures ${OpenCV_LIBS} )
+target_link_libraries( LinesMatching ${OpenCV_LIBS} )
