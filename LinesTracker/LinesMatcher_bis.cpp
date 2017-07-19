@@ -99,8 +99,8 @@
    }
 
    /* plot matches */
-   cv::Mat lsd_outImg;
-   resize( imageMat1, imageMat1, Size( imageMat1.cols / 2, imageMat1.rows / 2 ) );
+   /*cv::Mat lsd_outImg;
+   resize( loadedImage, loadedImage, Size( imageMat1.cols / 2, imageMat1.rows / 2 ) );
    resize( imageMat2, imageMat2, Size( imageMat2.cols / 2, imageMat2.rows / 2 ) );
    std::vector<char> lsd_mask( matches.size(), 1 );
    drawLineMatches( imageMat1, octave0_1, imageMat2, octave0_2, good_matches, lsd_outImg, Scalar::all( -1 ), Scalar::all( -1 ), lsd_mask,
@@ -108,5 +108,5 @@
 
    imshow( "LSD matches", lsd_outImg );
    waitKey();
-
+*/
  }
