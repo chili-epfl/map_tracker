@@ -3,15 +3,13 @@ include_directories(${PROJECT_SOURCE_DIR}/tests/common)
 
 set(common_SOURCES
         common/VideoSource.cpp
-        common/Visualization3D.cpp
-        common/VideoSource.hpp
-        common/Visualization3D.hpp)
+        common/VideoSource.hpp)
 
 add_library(common SHARED ${common_SOURCES})
 target_link_libraries(common ${OpenCV_LIBRARIES} map_tracker)
 
 set(exec_SOURCES
-        tracker.cpp)
+        tracker.cpp LineDescriptors.cpp)
 
 foreach(source ${exec_SOURCES})
   # Compute the name of the binary to create

@@ -67,7 +67,7 @@ float my_mean(float new_array[], int num){
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-float median(float new_array[], int num){
+float my_median(float new_array[], int num){
         //CALCULATE THE MEDIAN (middle number)
         if(num % 2 != 0) { // is the # of elements odd?
                 int temp = ((num+1)/2)-1;
@@ -107,37 +107,32 @@ float mode(float new_array[], int num) {
 
 
 std::map<int,int>  clusterLinesByAngles(std::vector<KeyLine> keylines, int nb_cluster){
-  std::map<int,int> grouped_keylines;
-  float angle =  getAnglesDegree(keylines[0]);
-  float angleList[nb_cluster];
-  for (int a = 0; a < nb_cluster; a++)
-          angleList[a] = -1;
-  angleList[0] = angle;
-  int count = 0;
-  float klangles[keylines.size()];
-  for ( int i = 0; i < (int) keylines.size(); i++ )
-          klangles[i] = getAnglesDegree(keylines[i]);
-
-
-
+        std::map<int,int> grouped_keylines;
+        float angle =  getAnglesDegree(keylines[0]);
+        float angleList[nb_cluster-1];
+        for (int a = 0; a < nb_cluster; a++)
+                angleList[a] = -1;
+        angleList[0] = angle;
+        int count = 0;
+        float klangles[keylines.size()];
+        for ( int i = 0; i < (int) keylines.size(); i++ )
+                klangles[i] = getAnglesDegree(keylines[i]);
         for ( int i = 0; i < (int) keylines.size(); i++ ) {
-                float max_distance = my_mean(klangles,(int) keylines.size() )/2;
+                float max_distance = my_median(klangles,(int) keylines.size() )-10;
                 bool added = false;
                 for (int a = 0; a <= count; a++) {
                         float angle = angleList[a];
                         if(angle!=-1) {
                                 float distance = std::min(abs((angle + 5) - getAnglesDegree(keylines[i])), abs((angle - 5) - getAnglesDegree(keylines[i])));
                                 std::cout << " line " << i  << " at angle " << getAnglesDegree(keylines[i]) << " group " << a << " at angle " << angle <<  " distance " << distance << " min " << max_distance << std::endl;
-                                if(distance <= max_distance) {
+
+                                if(distance <= max_distance ) {
                                         grouped_keylines[i] = a;
                                         distance = min(distance,max_distance);
                                         added = true;
+                                        //todo update angle list with new angle
                                 }
                         }
-                }
-                if(added) {
-                        std::cout << " ADDING TO EXISTING GROUP  "<<   grouped_keylines[i] << std::endl;
-
                 }
                 if(!added) {
                         count +=1;
@@ -170,14 +165,12 @@ std::map<int,int>  groupLinesByAngles(std::vector<KeyLine> keylines){
                         if(distance <= min_distance) {
                                 min_distance = distance;
                                 grouped_keylines[i] = a;
-                                std::cout << " ADDING TO EXISTING GROUP  "<< a << std::endl;
                                 added = true;
                                 break;
                         }
                         if(distance >= max_distance) {
                                 max_distance = distance;
                                 grouped_keylines[i] = a;
-                                std::cout << " ADDING TO EXISTING GROUP  "<< a << std::endl;
                                 added = true;
                                 break;
                         }
@@ -185,9 +178,8 @@ std::map<int,int>  groupLinesByAngles(std::vector<KeyLine> keylines){
                 if(!added) {
                         angleList.push_back(getAnglesDegree(keylines[i]));
                         grouped_keylines[i] = angleList.size()-1;
-                        std::cout << " NEW GROUP  "<< angleList.size()-1 << std::endl;
-
                 }
+
         }
         nb_groups = (int) angleList.size();
         return grouped_keylines;
